@@ -1,20 +1,16 @@
 package Interfata;
 
-import Polinoame.OperatiiPolinoame;
-import Polinoame.Polinom;
-import Parsare.*;
+import Polynomial.PolynomialOperations;
+import Polynomial.Polynomial;
+import Parse.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller {
     private View view;
-    private Polinom polinom1;
-    private Polinom polinom2;
-
-    /*
-    * La apasarea unui buton se parseaza string-ul introdus apoi se face operatia
-    * Daca un string este invalid, se va afisa un mesaj de eroare*/
+    private Polynomial polynomial1;
+    private Polynomial polynomial2;
 
     public Controller(View view){
         this.view = view;
@@ -23,90 +19,90 @@ public class Controller {
         view.addSubButtonListener(new SubButtonListener());
         view.addMullButtonListener(new MullButtonListener());
         view.addDivButtonListener(new DivButtonListener());
-        view.addDerivButtonListener(new DerivButtonListener());
-        view.addIntegButtonListener(new IntegButtonListener());
+        view.addDerivationButtonListener(new DerivButtonListener());
+        view.addIntegrationButtonListener(new IntegButtonListener());
     }
 
     class AddButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            polinom2 = ParsareString.parsare(view.getInPolinom2().getText());
-            if (polinom1 != null && polinom2 != null) {
-                view.setResult("" + OperatiiPolinoame.addPolinoame(polinom1, polinom2));
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            polynomial2 = ParseString.parse(view.getInPolynomial2().getText());
+            if (polynomial1 != null && polynomial2 != null) {
+                view.setResult("" + PolynomialOperations.addPolynomials(polynomial1, polynomial2));
             } else {
-                if (polinom1 == null)
-                    view.showJOptionPane("Polinomul " + view.getInPolinom1().getText() + " este invalid!");
+                if (polynomial1 == null)
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial1().getText() + " is incorrect!");
                 else
-                    view.showJOptionPane("Polinomul " + view.getInPolinom2().getText() + " este invalid!");
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial2().getText() + " is incorrect!");
             }
         }
     }
 
     class SubButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            polinom2 = ParsareString.parsare(view.getInPolinom2().getText());
-            if (polinom1 != null && polinom2 != null) {
-                view.setResult("" + OperatiiPolinoame.subPolinoame(polinom1, polinom2));
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            polynomial2 = ParseString.parse(view.getInPolynomial2().getText());
+            if (polynomial1 != null && polynomial2 != null) {
+                view.setResult("" + PolynomialOperations.subPolynomials(polynomial1, polynomial2));
             } else {
-                if (polinom1 == null)
-                    view.showJOptionPane("Polinomul " + view.getInPolinom1().getText() + " este invalid!");
+                if (polynomial1 == null)
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial1().getText() + " is incorrect!");
                 else
-                    view.showJOptionPane("Polinomul " + view.getInPolinom2().getText() + " este invalid!");
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial2().getText() + " is incorrect!");
             }
         }
     }
 
     class MullButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            polinom2 = ParsareString.parsare(view.getInPolinom2().getText());
-            if (polinom1 != null && polinom2 != null) {
-                view.setResult("" + OperatiiPolinoame.mullPolinoame(polinom1, polinom2));
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            polynomial2 = ParseString.parse(view.getInPolynomial2().getText());
+            if (polynomial1 != null && polynomial2 != null) {
+                view.setResult("" + PolynomialOperations.mullPolynomials(polynomial1, polynomial2));
             } else {
-                if (polinom1 == null)
-                    view.showJOptionPane("Polinomul " + view.getInPolinom1().getText() + " este invalid!");
+                if (polynomial1 == null)
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial1().getText() + " is incorrect!");
                 else
-                    view.showJOptionPane("Polinomul " + view.getInPolinom2().getText() + " este invalid!");
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial2().getText() + " is incorrect!");
             }
         }
     }
 
     class DivButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            polinom2 = ParsareString.parsare(view.getInPolinom2().getText());
-            if (polinom1 != null && polinom2 != null) {
-                view.setResult("" + OperatiiPolinoame.divPolinoame(polinom1, polinom2));
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            polynomial2 = ParseString.parse(view.getInPolynomial2().getText());
+            if (polynomial1 != null && polynomial2 != null) {
+                view.setResult("" + PolynomialOperations.divPolynomials(polynomial1, polynomial2));
             } else {
-                if (polinom1 == null)
-                    view.showJOptionPane("Polinomul " + view.getInPolinom1().getText() + " este invalid!");
+                if (polynomial1 == null)
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial1().getText() + " is incorrect!");
                 else
-                    view.showJOptionPane("Polinomul " + view.getInPolinom2().getText() + " este invalid!");
+                    view.showJOptionPane("The polynomial " + view.getInPolynomial2().getText() + " is incorrect!");
             }
         }
     }
 
     class DerivButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            if (polinom1 != null) {
-                OperatiiPolinoame.derivare(polinom1);
-                view.setResult("" + polinom1);
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            if (polynomial1 != null) {
+                PolynomialOperations.derivation(polynomial1);
+                view.setResult("" + polynomial1);
             } else {
-                view.showJOptionPane("Polinomul " + view.getInPolinom2().getText() + " este invalid!");
+                view.showJOptionPane("The polynomial " + view.getInPolynomial2().getText() + " is incorrect!");
             }
         }
     }
 
     class IntegButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            polinom1 = ParsareString.parsare(view.getInPolinom1().getText());
-            if (polinom1 != null) {
-                OperatiiPolinoame.integrare(polinom1);
-                view.setResult("" + polinom1);
+            polynomial1 = ParseString.parse(view.getInPolynomial1().getText());
+            if (polynomial1 != null) {
+                PolynomialOperations.integration(polynomial1);
+                view.setResult("" + polynomial1);
             } else {
-                view.showJOptionPane("Polinomul " + view.getInPolinom1().getText() + " este invalid!");
+                view.showJOptionPane("The polynomial " + view.getInPolynomial1().getText() + " is incorrect!");
             }
         }
     }
