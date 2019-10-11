@@ -1,94 +1,94 @@
-package Polinoame;
+package Polynomial;
 
 import java.text.DecimalFormat;
 
-public class Monom implements Comparable {
-    private int putere;
-    private double coeficient;
+public class Monomial implements Comparable {
+    private int pow;
+    private double coefficient;
 
-    public Monom(double coeficient, int putere) {
-        this.putere = putere;
-        this.coeficient = coeficient;
+    public Monomial(double coefficient, int pow) {
+        this.pow = pow;
+        this.coefficient = coefficient;
     }
 
-    void derivare(){                    // Derivate a unui monom
-        coeficient *= putere;
-        putere--;
+    void derivation(){
+        coefficient *= pow;
+        pow--;
     }
 
-    void integrare(){                   // Integrare a unui monom
-        putere++;
-        coeficient /= putere;
+    void integration(){
+        pow++;
+        coefficient /= pow;
     }
 
-    void add(double coeficient){        // Adunare a unui coeficient la monom
-        this.coeficient += coeficient;
+    void add(double coefficient){
+        this.coefficient += coefficient;
     }
 
-    Monom mull(Monom monom){                                             // Inmultire a 2 monoame
-        return new Monom(this.coeficient * monom.coeficient, this.putere + monom.putere);
+    Monomial mull(Monomial monomial){
+        return new Monomial(this.coefficient * monomial.coefficient, this.pow + monomial.pow);
     }
 
-    int getPutere() {
-        return putere;
+    int getPow() {
+        return pow;
     }
 
-    double getCoeficient() {
-        return coeficient;
+    double getCoefficient() {
+        return coefficient;
     }
 
-    void setCoeficient(double coeficient) {
-        this.coeficient = coeficient;
+    void setCoefficient(double coefficient) {
+        this.coefficient = coefficient;
     }
 
-    public int compareTo(Object o) {                                    // Metoda compareTo pentru folosirea treeSet-ului
-        return ((Monom)o).putere - putere;
-    }
-
-    @Override
-    public boolean equals(Object obj) {                                 // Metoda equals folosita pentru testare
-        return coeficient == ((Monom)obj).coeficient && putere == ((Monom)obj).putere;
+    public int compareTo(Object o) {
+        return ((Monomial)o).pow - pow;
     }
 
     @Override
-    public String toString() {                                          // Returnez monomul ca string
-        DecimalFormat df = new DecimalFormat("#0.00");  // Afisez coeficientul cu 2 zecimale
-        String coef;                                            // In coef retun coeficientul ca string
+    public boolean equals(Object obj) {
+        return coefficient == ((Monomial)obj).coefficient && pow == ((Monomial)obj).pow;
+    }
 
-        if (coeficient == (double)Math.round(coeficient)){      // Daca numarul este intreg, afisez fara zecimale
-            coef = "" + Math.round(coeficient);
+    @Override
+    public String toString() {
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String coeff;
+
+        if (coefficient == (double)Math.round(coefficient)){
+            coeff = "" + Math.round(coefficient);
         } else{
-            coef = df.format(coeficient);
-            if (coef.charAt(coef.length() - 1) == '0'){         // Daca daor prima zecimala este diferita de 0, afisez doar una
-                coef = coef.substring(0, coef.length() - 1);
+            coeff = df.format(coefficient);
+            if (coeff.charAt(coeff.length() - 1) == '0'){
+                coeff = coeff.substring(0, coeff.length() - 1);
             }
         }
 
-        switch (putere) {
-            case 0:                                 // Daca puterea este 0, afisez dar coeficientul
-                if (coeficient < 0)
-                    return coef + "";
+        switch (pow) {
+            case 0:
+                if (coefficient < 0)
+                    return coeff + "";
                 else
-                    return "+" + coef + "";         // Daca este pozitiv, pun + in fata lui
-            case 1:                                 // Daca puterea este 1 afisez doar coeficientul si x (si semnul coeficientului)
-                if (coeficient == 1) {
+                    return "+" + coeff + "";
+            case 1:
+                if (coefficient == 1) {
                     return "+x";
-                } else if (coeficient == -1) {
+                } else if (coefficient == -1) {
                     return "-x";
-                } else if (coeficient < 0) {
-                    return coef + "x";
+                } else if (coefficient < 0) {
+                    return coeff + "x";
                 } else {
-                    return "+" + coef + "x";
+                    return "+" + coeff + "x";
                 }
-            default:                                // Altfel afisez monomul normal, in functie de coeficient si de semnul lui
-                if (coeficient == 1) {
-                return "+x^" + putere;
-            } else if (coeficient == -1) {
-                return "-x^" + putere;
-            } else if (coeficient < 0) {
-                return coef + "x^" + putere;
+            default:
+                if (coefficient == 1) {
+                return "+x^" + pow;
+            } else if (coefficient == -1) {
+                return "-x^" + pow;
+            } else if (coefficient < 0) {
+                return coeff + "x^" + pow;
             } else {
-                return "+" + coef + "x^" + putere;
+                return "+" + coeff + "x^" + pow;
             }
         }
     }
