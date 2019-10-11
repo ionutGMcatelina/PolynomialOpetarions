@@ -4,30 +4,30 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class View extends JFrame {
-    private JTextField inPolinom1 = new JTextField(50);             // Aici se introduce primul polinom
-    private JTextField inPolinom2 = new JTextField(50);             // Aici se introduce al doilea polinom
-    private JTextField result = new JTextField(50);                 // Aici se afiseaza rezultatul
+    private JTextField inPolynomial1 = new JTextField(50);
+    private JTextField inPolynomial2 = new JTextField(50);
+    private JTextField result = new JTextField(50);                 // The result will be displayed here
 
-    private JButton adunare = new JButton("ADD");                      // Butoane pentru operatii
-    private JButton scadere = new JButton("SUB");
-    private JButton inmultire = new JButton("MULL");
-    private JButton impartire = new JButton("DIV");
-    private JButton derivare = new JButton("DERIVATION");
-    private JButton integrare = new JButton("INTEGRATION");
+    private JButton add = new JButton("ADD");                      // Buttons for operations
+    private JButton sub = new JButton("SUB");
+    private JButton mull = new JButton("MULL");
+    private JButton div = new JButton("DIV");
+    private JButton derivation = new JButton("DERIVATION");
+    private JButton integration = new JButton("INTEGRATION");
 
     public View (){
-        JLabel titlu = new JLabel("POLYNOMIAL OPERATION");
+        JLabel title = new JLabel("POLYNOMIAL OPERATION");
         JLabel pol1 = new JLabel("First polynomial");
         JLabel pol2 = new JLabel("Second polynomial");
         JLabel resultL = new JLabel("Result");
 
-        inPolinom1.setFont(new Font( "Serif", Font.PLAIN, 25));
-        inPolinom2.setFont(new Font( "Serif", Font.PLAIN, 25));
+        inPolynomial1.setFont(new Font( "Serif", Font.PLAIN, 25));
+        inPolynomial2.setFont(new Font( "Serif", Font.PLAIN, 25));
         result.setFont(new Font( "Serif", Font.PLAIN, 25));
 
-        titlu.setFont(new Font( "Serif", Font.PLAIN, 30));
-        titlu.setBackground(new Color(176,224,230));
-        titlu.setOpaque(true);
+        title.setFont(new Font( "Serif", Font.PLAIN, 30));
+        title.setBackground(new Color(176,224,230));
+        title.setOpaque(true);
         pol1.setFont(new Font( "Serif", Font.PLAIN, 25));
         pol1.setBackground(new Color(176,224,230));
         pol1.setOpaque(true);
@@ -40,41 +40,41 @@ public class View extends JFrame {
 
         JPanel content = new JPanel();
         JPanel buttons = new JPanel();
-        JPanel titluPanel = new JPanel();
-        JPanel polinoame1 = new JPanel();
-        JPanel polinoame2= new JPanel();
-        JPanel polinoame3 = new JPanel();
+        JPanel titlePanel = new JPanel();
+        JPanel polynomial1 = new JPanel();
+        JPanel polynomial2= new JPanel();
+        JPanel polynomial3 = new JPanel();
 
-        polinoame1.add(pol1);
-        polinoame1.add(inPolinom1);
-        polinoame1.setBackground(new Color(176,224,230));
+        polynomial1.add(pol1);
+        polynomial1.add(inPolynomial1);
+        polynomial1.setBackground(new Color(176,224,230));
 
-        polinoame2.add(pol2);
-        polinoame2.add(inPolinom2);
-        polinoame2.setBackground(new Color(176,224,230));
+        polynomial2.add(pol2);
+        polynomial2.add(inPolynomial2);
+        polynomial2.setBackground(new Color(176,224,230));
 
-        polinoame3.add(resultL);
-        polinoame3.add(result);
-        polinoame3.setBackground(new Color(176,224,230));
-        titluPanel.add(titlu);
-        titluPanel.setBackground(new Color(176,224,230));
+        polynomial3.add(resultL);
+        polynomial3.add(result);
+        polynomial3.setBackground(new Color(176,224,230));
+        titlePanel.add(title);
+        titlePanel.setBackground(new Color(176,224,230));
 
-        buttons.add(adunare);
-        buttons.add(scadere);
-        buttons.add(inmultire);
-        buttons.add(impartire);
-        buttons.add(derivare);
-        buttons.add(integrare);
+        buttons.add(add);
+        buttons.add(sub);
+        buttons.add(mull);
+        buttons.add(div);
+        buttons.add(derivation);
+        buttons.add(derivation);
         buttons.setLayout(new FlowLayout());
         buttons.setBackground(new Color(135,206,250));
         buttons.setOpaque(true);
 
-        content.add(titluPanel);
-        content.add(polinoame1);
+        content.add(titlePanel);
+        content.add(polynomial1);
         content.add( Box.createRigidArea(new Dimension(0,30)));
-        content.add(polinoame2);
+        content.add(polynomial2);
         content.add( Box.createRigidArea(new Dimension(0,30)));
-        content.add(polinoame3);
+        content.add(polynomial3);
         content.add( Box.createRigidArea(new Dimension(0,30)));
         content.add(buttons);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
@@ -86,35 +86,35 @@ public class View extends JFrame {
     }
 
     void addAddButtonListener(ActionListener e){
-        adunare.addActionListener(e);
+        add.addActionListener(e);
     }
 
     void addSubButtonListener(ActionListener e){
-        scadere.addActionListener(e);
+        sub.addActionListener(e);
     }
 
     void addMullButtonListener(ActionListener e){
-        inmultire.addActionListener(e);
+        mull.addActionListener(e);
     }
 
     void addDivButtonListener(ActionListener e){
-        impartire.addActionListener(e);
+        div.addActionListener(e);
     }
 
-    void addDerivButtonListener(ActionListener e){
-        derivare.addActionListener(e);
+    void addDerivationButtonListener(ActionListener e){
+        derivation.addActionListener(e);
     }
 
-    void addIntegButtonListener(ActionListener e){
-        integrare.addActionListener(e);
+    void addIntegrationButtonListener(ActionListener e){
+        derivation.addActionListener(e);
     }
 
-    JTextField getInPolinom1() {
-        return inPolinom1;
+    JTextField getInPolynomial1() {
+        return inPolynomial1;
     }
 
-    JTextField getInPolinom2() {
-        return inPolinom2;
+    JTextField getInPolynomial2() {
+        return inPolynomial2;
     }
 
     void showJOptionPane(String message){
