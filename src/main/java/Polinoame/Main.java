@@ -9,6 +9,6 @@ public class Main {
         view.setResizable(false);
         view.setVisible(true);
 
-        Controller controller = new Controller(view);
+        new Controller(view);
     }
 }
