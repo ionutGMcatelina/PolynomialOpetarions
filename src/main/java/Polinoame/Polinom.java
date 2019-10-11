@@ -1,49 +1,49 @@
-package Polinoame;
+package Polynomial;
 import java.util.TreeSet;
 
-public class Polinom {
-    private TreeSet<Monom> monoame;                             // TreeSet in care tin monoamele
+public class Polynomial {
+    private TreeSet<Monomial> monomials;
 
-    public Polinom() {
-        monoame = new TreeSet<Monom>();
+    public Polynomial() {
+        monomials = new TreeSet<Monomial>();
     }
 
-    public void addMonom(Monom monom){                          // Metoda care adauga un monom in polinom
-        if (monom.getCoeficient() != 0) {
-            if (monoame.contains(monom)) {                      // Daca deja exista un monom cu acelasi grad, daor ii adunam coeficientul din noul monom
-                for (Monom monom1 : monoame) {                  // Cautam monomul cu acelasi grad
-                    if (monom1.getPutere() == monom.getPutere()) {
-                        monom1.add(monom.getCoeficient());
-                        if (monom1.getCoeficient() == 0){       // Daca prin adunare coeficientul este 0, scoatem monomul din polinom
-                            monoame.remove(monom1);
+    public void addMonomial(Monomial monomial){
+        if (monomial.getCoefficient() != 0) {
+            if (monomials.contains(monomial)) {
+                for (Monomial monomial1 : monomials) {
+                    if (monomial1.getPow() == monomial.getPow()) {
+                        monomial1.add(monomial.getCoefficient());
+                        if (monomial1.getCoefficient() == 0){
+                            monomials.remove(monomial1);
                         }
                         break;
                     }
                 }
-            } else {                                            // Daca nu avem un monom cu acelasi grad, il adaugam in treeSet
-                monoame.add(monom);
+            } else {
+                monomials.add(monomial);
             }
         }
     }
 
-    void addMonoame(TreeSet<Monom> monoame){                    // Metoda in care adaug un set de monoame
-        this.monoame.addAll(monoame);
+    void addMonomials(TreeSet<Monomial> monomials){
+        this.monomials.addAll(monomials);
     }
 
-    public TreeSet<Monom> getMonoame() {                        // Returnez toate monoamele
-        return monoame;
+    public TreeSet<Monomial> getMonomials() {
+        return monomials;
     }
 
     @Override
     public String toString() {
-        if (monoame.size() == 0){                               // Daca treeSetul este gol returnez "0"
+        if (monomials.size() == 0){
             return "0";
         }
         String s = "";
-        for (Monom monom : monoame){                            // In s adaug toate monoamele
+        for (Monomial monom : monomials){
             s += monom;
         }
-        if (s.charAt(0) == '+'){                                // Daca priml caracter este + il scot
+        if (s.charAt(0) == '+'){
             s = s.substring(1);
         }
         return s;
