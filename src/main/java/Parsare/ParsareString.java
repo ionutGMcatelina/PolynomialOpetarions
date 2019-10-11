@@ -1,96 +1,97 @@
-package Parsare;
+package Parse;
 
-import Polinoame.*;
+import Polynomial.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParsareString {
-    public static Polinom parsare(String polinom){                  // Transforma un string intr-un polinom, daca nu poate va returna null
-        polinom = polinom.replaceAll(" ", "");    // Sterg toate spatiile
-        Pattern pattern = Pattern.compile("([+-]?[^-+]+)");         // Parsez stringul dupa + sau -
+public class ParseString {
+    public static Polynomial parse(String polinom){                  // It returns a polynomial made from a string, or null if it cannot do that
+        polinom = polinom.replaceAll(" ", "");     // The polynomial is formed by parsing the string into monomial
+        Pattern pattern = Pattern.compile("([+-]?[^-+]+)");
         Matcher matcher = pattern.matcher(polinom);
-        Polinom newPolinom = new Polinom();
+        Polynomial newPolynomial = new Polynomial();
 
         while (matcher.find()){
-            Monom monom = verificare(matcher.group());              // Pargurg fiecare subStrung rezultat si verific daca este un monom valid
-            if (monom == null){                                     // Daca gasesc unul care nu este, returnez null
+            Monomial monomial = check(matcher.group());              // If each monomial (string) is correct, it creates a
+                                                                     // Monomial object and put it into a list
+            if (monomial == null){                                   // otherwise, the method returns null
                 return null;
             }
-            newPolinom.addMonom(monom);                             // Adaug monoamele intr-un polinom pe care il returnez
+            newPolynomial.addMonomial(monomial);
         }
-        return newPolinom;
+        return newPolynomial;
     }
 
-    public static Monom verificare(String monom){
-        double newCoeficient = 0;
-        int newPutere = 0;
+    public static Monomial check(String monomial){                   // It checks if a string is a monomial
+        double newCoefficient = 0;
+        int newPow = 0;
         int nr = 0;
         char op = ' ';
         int i = 0;
-        if (monom.charAt(0) == '+' || monom.charAt(0) == '-') {     // Transforma un string intr-un monom, daca nu poate va returna null
-            i++;                                                    // Daca primul caracter ii + sau - sar peste el
+        if (monomial.charAt(0) == '+' || monomial.charAt(0) == '-') {
+            i++;
         }
-        if (monom.charAt(i) == 'x'){                                // Daca primul caracter ii x, coeficientul ii 1
-            newCoeficient = 1;
+        if (monomial.charAt(i) == 'x'){
+            newCoefficient = 1;
         }
         else {
-            while (i < monom.length() && monom.charAt(i) != 'x') {            // Parcurg caracterele pana la x sau pana la finalul sirului si formez un coeficient din cifre
-                if (monom.charAt(i) < 48 || monom.charAt(i) > 57) {
-                    if (op == ' ' && (monom.charAt(i) == '*' || monom.charAt(i) == '/' || monom.charAt(i) == '^')) {
-                        newCoeficient = nr;
+            while (i < monomial.length() && monomial.charAt(i) != 'x') {
+                if (monomial.charAt(i) < 48 || monomial.charAt(i) > 57) {
+                    if (op == ' ' && (monomial.charAt(i) == '*' || monomial.charAt(i) == '/' || monomial.charAt(i) == '^')) {
+                        newCoefficient = nr;
                         nr = 0;
-                        op = monom.charAt(i);                       // Daca se gasesc unul din caracterele *(inmultire), /(impartire)
-                                                                    // sau ^(ridicare la putere) retin numarul de pana acum in altceva si continui cu numarul de la 0
-                    } else                                          // Daca caracterul nu este nici o operatie, nici o cifra returnez null
+                        op = monomial.charAt(i);
+
+                    } else
                         return null;
                 } else
-                    nr = nr * 10 + (monom.charAt(i) - 48);
+                    nr = nr * 10 + (monomial.charAt(i) - 48);
                 i++;
             }
 
-            switch (op) {                                           // Calculez coeficientul dupa caz
+            switch (op) {
                 case ' ':
-                    newCoeficient = nr;
+                    newCoefficient = nr;
                     break;
                 case '*':
-                    newCoeficient = newCoeficient * nr;
+                    newCoefficient = newCoefficient * nr;
                     break;
                 case '/':
-                    newCoeficient = newCoeficient / nr;
+                    newCoefficient = newCoefficient / nr;
                     break;
                 case '^':
-                    newCoeficient = Math.pow(newCoeficient, nr);
+                    newCoefficient = Math.pow(newCoefficient, nr);
                     break;
             }
         }
 
-        if (monom.charAt(0) == '-') {                               // Daca primul caracter este -, schimb semnul coeficientului
-            newCoeficient = -newCoeficient;
+        if (monomial.charAt(0) == '-') {
+            newCoefficient = -newCoefficient;
         }
-        if (monom.contains("x")) {
+        if (monomial.contains("x")) {
             i++;
-            if (i + 1 < monom.length()) {                           // Verific daca sunt caractere dupa x
-                if (monom.charAt(i) != '^') {                       // Daca primul caraccter dupa x nu ii ^, returnez null
+            if (i + 1 < monomial.length()) {
+                if (monomial.charAt(i) != '^') {
                     return null;
                 } else {
                     i++;
-                    while (i < monom.length()) {                    // Parcurg caracterele si formez puterea
-                        if (monom.charAt(i) < 48 || monom.charAt(i) > 57) {
-                            return null;                            // Daca caracterul nu este nici o operatie, nici o cifra returnez null
+                    while (i < monomial.length()) {
+                        if (monomial.charAt(i) < 48 || monomial.charAt(i) > 57) {
+                            return null;
                         }
-                        newPutere = newPutere * 10 + (monom.charAt(i) - 48);
+                        newPow = newPow * 10 + (monomial.charAt(i) - 48);
                         i++;
                     }
                 }
             } else {
-                if (i < monom.length()) {                           // Daca dupa ^ nu sunt cifre, returnez null
+                if (i < monomial.length()) {
                     return null;
                 } else {
-                    newPutere = 1;                                  // Daca nu este nimic dupa x, puterea este 1
+                    newPow = 1;
                 }
             }
         }
-        return new Monom(newCoeficient, newPutere);                 // Returnez un monom cu coeficientul si puterea calculate
+        return new Monomial(newCoefficient, newPow);
     }
 }
