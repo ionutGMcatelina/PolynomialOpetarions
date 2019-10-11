@@ -1,4 +1,4 @@
-package Polinoame;
+package Polynomial;
 
 import Interfata.*;
 
